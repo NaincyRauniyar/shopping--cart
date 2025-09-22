@@ -1,5 +1,6 @@
 package com.springcodework.dreamcart.service.order;
 
+import com.springcodework.dreamcart.dto.OrderDto;
 import com.springcodework.dreamcart.enums.OrderStatus;
 import com.springcodework.dreamcart.exceptions.ResourceNotFoundException;
 import com.springcodework.dreamcart.model.Cart;
@@ -10,6 +11,7 @@ import com.springcodework.dreamcart.repository.OrderRepository;
 import com.springcodework.dreamcart.repository.ProductRepository;
 import com.springcodework.dreamcart.service.cart.CartService;
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -24,6 +26,8 @@ public class OrderService implements  IOrderService{
     private final OrderRepository orderRepository;
     private final ProductRepository productRepository;
     private final CartService cartService;
+    private final ModelMapper modelMapper;
+
     @Override
     public Order placeOrder(Long userId) {
         Cart cart = cartService.getCartByUserId(userId);
@@ -77,5 +81,9 @@ public class OrderService implements  IOrderService{
     public List<Order> getUserOrders(Long userId){
         return orderRepository.findByUserId(userId);
 
+    }
+
+    private OrderDto convertToDto(Order order){
+        return modelMapper.map(order,OrderDto.class);
     }
 }
