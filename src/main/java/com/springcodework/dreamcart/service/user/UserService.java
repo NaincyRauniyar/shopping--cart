@@ -1,5 +1,6 @@
 package com.springcodework.dreamcart.service.user;
 
+import com.springcodework.dreamcart.dto.UserDto;
 import com.springcodework.dreamcart.exceptions.AlreadyExistsException;
 import com.springcodework.dreamcart.exceptions.ResourceNotFoundException;
 import com.springcodework.dreamcart.model.User;
@@ -53,5 +54,10 @@ public class UserService implements IUserService{
             throw new ResourceNotFoundException("user not found!");
         });
 
+    }
+
+    @Override
+    public UserDto convertUserToDto(User user) {
+        return null;
     }
 }

@@ -1,5 +1,6 @@
 package com.springcodework.dreamcart.controller;
 
+import com.springcodework.dreamcart.dto.OrderDto;
 import com.springcodework.dreamcart.exceptions.ResourceNotFoundException;
 import com.springcodework.dreamcart.model.Order;
 import com.springcodework.dreamcart.response.ApiResponse;
@@ -32,7 +33,7 @@ public class OrderController {
     @GetMapping("/{orderId}/order")
     public ResponseEntity<ApiResponse> getOrderById(@PathVariable Long orderId){
         try {
-            Order order = orderService.getOrder(orderId);
+            OrderDto order = orderService.getOrder(orderId);
             return ResponseEntity.ok(new ApiResponse("Item order success!",order));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("OOPSs!",e.getMessage()));
@@ -42,7 +43,7 @@ public class OrderController {
     @GetMapping("/{userId}/order")
     public ResponseEntity<ApiResponse> getUserOrders(@PathVariable Long userId){
         try {
-            List<Order> order = orderService.getUserOrders(userId);
+            List<OrderDto> order = orderService.getUserOrders(userId);
             return ResponseEntity.ok(new ApiResponse("Item order success!",order));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("OOPSs!",e.getMessage()));
